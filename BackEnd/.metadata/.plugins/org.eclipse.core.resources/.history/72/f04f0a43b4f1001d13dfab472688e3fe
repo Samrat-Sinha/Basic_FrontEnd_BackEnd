@@ -1,0 +1,5 @@
+package com.UserBackEnd.Config;
+
+public class CorsConfig {
+
+}

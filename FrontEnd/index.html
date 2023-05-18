@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="registrationForm">
+        <input type="text" id="nameInput" placeholder="Name" required>
+        <input type="tel" id="phoneNumberInput" placeholder="Phone Number" required>
+        <input type="text" id="addressInput" placeholder="Address" required>
+        <input type="email" id="emailInput" placeholder="Email" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <div id="userDataContainer"></div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("nameInput").value;
+            const phoneNumber = document.getElementById("phoneNumberInput").value;
+            const address = document.getElementById("addressInput").value;
+            const email = document.getElementById("emailInput").value;
+
+            const user = {
+                name: name,
+                phoneNumber: phoneNumber,
+                address: address,
+                emailId: email
+            };
+
+            fetch("http://localhost:1995/user/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                fetchUserData();
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+
+        function fetchUserData() {
+            fetch("http://localhost:1995/user/data")
+            .then(response => response.json())
+            .then(data => {
+                const userDataContainer = document.getElementById("userDataContainer");
+
+                const userDataHTML = data.map(user => `
+                    <h1>User Data:</h1>
+                    <p>Name: ${user.name}</p>
+                    <p>Phone Number: ${user.phoneNumber}</p>
+                    <p>Address: ${user.address}</p>
+                    <p>Email: ${user.emailId}</p>
+                `).join('');
+
+                
+                userDataContainer.innerHTML = userDataHTML;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+        fetchUserData();
+    </script>
+</body>
+
+</html>

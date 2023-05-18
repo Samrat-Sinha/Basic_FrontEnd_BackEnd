@@ -1,0 +1,27 @@
+package com.UserBackEnd.Service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.UserBackEnd.Exception.UserException;
+import com.UserBackEnd.Model.User;
+import com.UserBackEnd.Repositary.UserRepositary;
+
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	private UserRepositary uRepo;
+	
+	@Override
+	public User register(User user) throws UserException {
+		Optional<User> findUser = uRepo.findByPhoneNumber(user.getPhoneNumber());
+		if(findUser.isPresent()) {
+			throw new UserException("User is already Present");
+		}
+		else {
+			return uRepo.save(user);
+		}
+	}
+
+}

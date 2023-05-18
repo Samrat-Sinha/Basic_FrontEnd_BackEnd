@@ -1,0 +1,5 @@
+package com.UserBackEnd.Exception;
+
+public class UserException {
+
+}

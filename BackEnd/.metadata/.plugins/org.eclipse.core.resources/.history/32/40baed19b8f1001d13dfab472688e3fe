@@ -1,0 +1,31 @@
+package com.UserBackEnd.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.UserBackEnd.Exception.UserException;
+import com.UserBackEnd.Model.User;
+import com.UserBackEnd.Service.UserService;
+
+@RestController
+@RequestMapping("/user")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
+public class UserController {
+
+	@Autowired
+	private UserService uService;
+	
+	
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@RequestBody User user) throws UserException{
+		return new ResponseEntity<User>(uService.register(user),HttpStatus.CREATED);
+	}
+	
+	
+}

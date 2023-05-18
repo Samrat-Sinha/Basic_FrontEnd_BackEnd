@@ -1,0 +1,20 @@
+package com.UserBackEnd.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.UserBackEnd.Exception.UserException;
+import com.UserBackEnd.Model.User;
+import com.UserBackEnd.Repositary.UserRepositary;
+
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	private UserRepositary uRepo;
+	
+	@Override
+	public User register(User user) throws UserException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

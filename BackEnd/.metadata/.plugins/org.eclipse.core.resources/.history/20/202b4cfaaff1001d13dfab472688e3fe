@@ -1,0 +1,5 @@
+package com.UserBackEnd.Repositary;
+
+public interface UserRepositary {
+
+}

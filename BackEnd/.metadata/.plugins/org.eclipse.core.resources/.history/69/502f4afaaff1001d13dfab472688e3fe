@@ -1,0 +1,5 @@
+package com.UserBackEnd.Service;
+
+public interface UserService {
+
+}
